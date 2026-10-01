@@ -1,0 +1,29 @@
+# Local benchmark artifacts
+raw-results/
+*.log
+*.tmp
+
+# Model weights / adapters
+*.gguf
+*.safetensors
+*.bin
+*.pt
+*.pth
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node
+node_modules/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Local environment
+.env
+.env.*
