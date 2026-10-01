@@ -46,7 +46,7 @@ Highlights:
 
 This model currently represents the kind of hardware fit that looks attractive for an always-available local helper or orchestrator.
 
-See [`benchmarks/gemma-4-12b-qat/README.md`](benchmarks/gemma-4-12b-qat/README.md).
+See [`benchmarks/gemma-4-12b-qat/README.md`](benchmarks/gemma-4-12b-qat/README.md) and the [curated JSON result set](benchmarks/gemma-4-12b-qat/results/2026-09-30-summary.json).
 
 ### Qwen 3.6 35B-A3B Q4_K_M
 
@@ -62,7 +62,24 @@ Highlights:
 
 The main finding is that MoE expands the **maximum runnable envelope**, but the 22 GB quantized footprint still matters for a desktop-resident deployment.
 
-See [`benchmarks/qwen-3.6-35b-a3b/README.md`](benchmarks/qwen-3.6-35b-a3b/README.md).
+See [`benchmarks/qwen-3.6-35b-a3b/README.md`](benchmarks/qwen-3.6-35b-a3b/README.md) and the [curated JSON result set](benchmarks/qwen-3.6-35b-a3b/results/2026-09-30-summary.json).
+
+## Reproducing the tests
+
+Cleaned benchmark scripts are published under [`scripts/`](scripts/).
+
+They include:
+
+- machine baseline capture
+- runtime-state capture
+- Gemma GPU-offload sweep points
+- Gemma occupied-context workloads
+- Qwen GPU-offload sweep points
+- Qwen occupied-context workloads
+
+See [`scripts/README.md`](scripts/README.md) before running them. The public scripts preserve the tested methodology while hardening a few lab-harness rough edges discovered during the session, such as duplicate model instances and calibration prompts that could overshoot the requested context.
+
+Generated lab output is written to `raw-results/` and is intentionally ignored by Git. Reviewed measurements are promoted into model-specific `results/` directories so the public repository does not become a dump of transient logs and duplicate experiments.
 
 ## Working conclusion
 
@@ -76,18 +93,28 @@ The target system does not need the largest model the machine can force into mem
 .
 ├── README.md
 ├── LICENSE
+├── scripts/
+│   ├── README.md
+│   ├── capture-baseline.sh
+│   ├── capture-runtime-state.sh
+│   ├── run-gemma-offload-point.sh
+│   ├── run-gemma-context-workload.sh
+│   ├── run-qwen-offload-point.sh
+│   └── run-qwen-context-workload.sh
 ├── benchmarks/
 │   ├── gemma-4-12b-qat/
-│   │   └── README.md
+│   │   ├── README.md
+│   │   └── results/
+│   │       └── 2026-09-30-summary.json
 │   └── qwen-3.6-35b-a3b/
-│       └── README.md
+│       ├── README.md
+│       └── results/
+│           └── 2026-09-30-summary.json
 ├── reports/
 │   └── 2026-09-30-rx7800xt-inference-report.md
 └── docs/
     └── methodology.md
 ```
-
-Raw benchmark artifacts and scripts from the local lab may be added incrementally as they are cleaned for public release.
 
 ## Notes on interpretation
 
