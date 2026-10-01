@@ -1,0 +1,34 @@
+{
+  "date": "2026-09-30",
+  "model": "google/gemma-4-12b-qat",
+  "hardware": {
+    "gpu": "AMD Radeon RX 7800 XT",
+    "vram_gb": 16,
+    "cpu": "AMD Ryzen 7 5800X",
+    "ram_gb": 64
+  },
+  "runtime": "LM Studio / llama.cpp ROCm",
+  "offload_sweep_4k": [
+    {"gpu_offload_percent": 50, "mean_decode_tokens_per_second": 7.801015292543924, "mean_ttft_seconds": 3.773441666666667},
+    {"gpu_offload_percent": 75, "mean_decode_tokens_per_second": 13.582791757603735, "mean_ttft_seconds": 5.024096333333333},
+    {"gpu_offload_percent": 90, "mean_decode_tokens_per_second": 23.60199140520166, "mean_ttft_seconds": 5.616524},
+    {"gpu_offload_percent": 95, "mean_decode_tokens_per_second": 34.45585295864981, "mean_ttft_seconds": 6.159642333333333},
+    {"gpu_offload_percent": 97.5, "mean_decode_tokens_per_second": 41.48184531053433, "mean_ttft_seconds": 6.151398},
+    {"gpu_offload_percent": 99, "mean_decode_tokens_per_second": 50.6332280238129, "mean_ttft_seconds": 6.382172000000001},
+    {"gpu_offload_percent": 100, "mean_decode_tokens_per_second": 50.69022854839477, "mean_ttft_seconds": 6.898630666666666}
+  ],
+  "context_load_estimates_full_gpu": [
+    {"context": 8192, "estimated_gpu_memory_gib": 8.11, "loaded": true},
+    {"context": 16384, "estimated_gpu_memory_gib": 9.35, "loaded": true},
+    {"context": 32768, "estimated_gpu_memory_gib": 11.84, "loaded": true},
+    {"context": 49152, "estimated_gpu_memory_gib": 14.33, "loaded": true},
+    {"context": 65536, "estimated_gpu_memory_gib": 16.81, "loaded": false, "note": "estimate only"}
+  ],
+  "occupied_context": [
+    {"context": 8192, "actual_input_tokens": 7316, "occupancy_percent": 89.31, "output_tokens": 128, "decode_tokens_per_second": 36.502434453699394, "ttft_seconds": 16.807662, "wall_seconds": 20.327, "vram_before_bytes": 10363125760, "vram_after_bytes": 11341156352},
+    {"context": 16384, "actual_input_tokens": 14687, "occupancy_percent": 89.64, "output_tokens": 128, "decode_tokens_per_second": 31.565648720062658, "ttft_seconds": 27.02462, "wall_seconds": 31.116, "vram_before_bytes": 10961162240, "vram_after_bytes": 13922381824},
+    {"context": 32768, "actual_input_tokens": 29429, "occupancy_percent": 89.81, "output_tokens": 128, "decode_tokens_per_second": 24.677487583046062, "ttft_seconds": 45.943618, "wall_seconds": 51.223, "vram_before_bytes": 11340652544, "vram_after_bytes": 12187312128},
+    {"context": 49152, "actual_input_tokens": 44171, "occupancy_percent": 89.87, "output_tokens": 128, "decode_tokens_per_second": 20.264071163588497, "ttft_seconds": 70.138895, "wall_seconds": 76.634, "vram_before_bytes": 12934041600, "vram_after_bytes": 15293407232}
+  ],
+  "interpretation": "Full GPU placement is strongly preferred. The model remained operational through very large occupied-context tests and is a strong practical fit for this 16 GB desktop GPU."
+}
