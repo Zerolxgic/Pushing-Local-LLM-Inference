@@ -1,0 +1,70 @@
+{
+  "date": "2026-09-30",
+  "model": "qwen/qwen3.6-35b-a3b",
+  "quantization": "Q4_K_M",
+  "reported_model_size_gb": 22.07,
+  "hardware": {
+    "gpu": "AMD Radeon RX 7800 XT",
+    "vram_gb": 16,
+    "cpu": "AMD Ryzen 7 5800X",
+    "ram_gb": 64
+  },
+  "runtime": "LM Studio / llama.cpp ROCm",
+  "reasoning": "off",
+  "offload_sweep_4k": [
+    {"gpu_offload_percent": 60, "mean_decode_tokens_per_second": 26.67, "mean_ttft_seconds": 0.085, "note": "comfortable baseline"},
+    {"gpu_offload_percent": 65, "mean_decode_tokens_per_second": 28.605268300095503, "mean_ttft_seconds": 0.100495},
+    {"gpu_offload_percent": 67.5, "mean_decode_tokens_per_second": 30.860209787363925, "mean_ttft_seconds": 0.07524066666666666, "note": "repeat run; first trial contained a severe transient decode outlier"},
+    {"gpu_offload_percent": 70, "mean_decode_tokens_per_second": 29.56533925222334, "mean_ttft_seconds": 0.07385966666666667, "note": "two runs near 32 tok/s, one at 24.15 tok/s; visible desktop lag"}
+  ],
+  "occupied_context": [
+    {
+      "gpu_offload_percent": 55,
+      "context": 16384,
+      "actual_input_tokens": 13080,
+      "occupancy_percent": 79.83,
+      "output_tokens": 41,
+      "decode_tokens_per_second": 8.665837923699897,
+      "ttft_seconds": 14.733245,
+      "wall_seconds": 19.389,
+      "vram_before_bytes": 14577459200,
+      "vram_after_bytes": 16903610368,
+      "observed_behavior": "completed, but VRAM reached approximately 15.7 GB and desktop lagged"
+    },
+    {
+      "gpu_offload_percent": 50,
+      "context": 16384,
+      "actual_input_tokens": 13080,
+      "occupancy_percent": 79.83,
+      "output_tokens": 41,
+      "decode_tokens_per_second": 17.375764370734522,
+      "ttft_seconds": 15.525235,
+      "wall_seconds": 17.866,
+      "vram_before_bytes": 13869383680,
+      "vram_after_bytes": 16422211584,
+      "observed_behavior": "completed; approximately 15.28 GB observed after workload"
+    },
+    {
+      "gpu_offload_percent": 45,
+      "context": 16384,
+      "result": "failed",
+      "failure": "ROCm GPU memory-access fault during prompt processing",
+      "prompt_progress_before_fault_percent": 55.1
+    },
+    {
+      "gpu_offload_percent": 50,
+      "context": 8192,
+      "actual_input_tokens": 6518,
+      "occupancy_percent": 79.57,
+      "output_tokens": 44,
+      "decode_tokens_per_second": 20.66640008612602,
+      "ttft_seconds": 7.584401,
+      "wall_seconds": 9.691,
+      "vram_before_bytes": 13408706560,
+      "vram_after_bytes": 14169804800,
+      "observed_peak_vram_gb_nvtop": 13.28,
+      "observed_behavior": "stable and the most balanced practical point tested"
+    }
+  ],
+  "interpretation": "The 35B-A3B MoE is feasible on a 16 GB RX 7800 XT and performs surprisingly well at small context, but the 22 GB quantized footprint creates substantial desktop-residency compromises. The 50% GPU / 8K context point was the best practical configuration tested."
+}
